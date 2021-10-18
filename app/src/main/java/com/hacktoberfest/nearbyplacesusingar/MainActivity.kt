@@ -1,8 +1,6 @@
 package com.hacktoberfest.nearbyplacesusingar
 
 import android.Manifest
-import android.app.ActivityManager
-import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -31,6 +29,8 @@ import com.hacktoberfest.nearbyplacesusingar.api.PlacesService
 import com.hacktoberfest.nearbyplacesusingar.ar.PlacesArFragment
 import com.hacktoberfest.nearbyplacesusingar.model.Place
 import com.hacktoberfest.nearbyplacesusingar.model.getPositionVector
+import com.hacktoberfest.nearbyplacesusingar.utils.ViewUtils
+import com.hacktoberfest.nearbyplacesusingar.utils.isSupportedDevice
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,7 +62,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!isSupportedDevice()) {
+        if (!isSupportedDevice(this)) {
+            finish()
             return
         }
         setContentView(R.layout.activity_main)
@@ -118,8 +119,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-             Toast.makeText(this,"Allow location permission",Toast.LENGTH_LONG).show()
-             return@getMapAsync
+                ViewUtils.toast(this,"Allow location permission")
+                return@getMapAsync
             }
             googleMap.isMyLocationEnabled = true
 
@@ -225,8 +226,8 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
             object : Callback<NearbyPlacesResponse> {
                 override fun onFailure(call: Call<NearbyPlacesResponse>, t: Throwable) {
                     Log.e(TAG, "Failed to get nearby places", t)
-                    Toast.makeText(this@MainActivity, "no", Toast.LENGTH_LONG).show()
-                }
+                    ViewUtils.toast(this@MainActivity,"No")
+                 }
 
                 override fun onResponse(
                     call: Call<NearbyPlacesResponse>,
@@ -234,11 +235,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
                 ) {
                     if (!response.isSuccessful) {
                         Log.e(TAG, "Failed to get nearby places")
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Failed to get nearby places",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        ViewUtils.toast(this@MainActivity,"Failed to get nearby places")
                         return
                     }
 
@@ -251,17 +248,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
 
-    private fun isSupportedDevice(): Boolean {
-        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        val openGlVersionString = activityManager.deviceConfigurationInfo.glEsVersion
-        if (openGlVersionString.toDouble() < 3.0) {
-            Toast.makeText(this, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
-                .show()
-            finish()
-            return false
-        }
-        return true
-    }
+
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
     }
