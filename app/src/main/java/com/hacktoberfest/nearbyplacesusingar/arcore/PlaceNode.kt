@@ -10,7 +10,7 @@ import com.google.ar.sceneform.rendering.ViewRenderable
 import com.hacktoberfest.nearbyplacesusingar.R
 import com.hacktoberfest.nearbyplacesusingar.model.Place
 
-
+//Class for holding places objects
 class PlaceNode(
     val context: Context,
     val place: Place?

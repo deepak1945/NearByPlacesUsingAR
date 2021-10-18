@@ -9,7 +9,6 @@ import android.hardware.SensorManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.getSystemService
@@ -26,7 +25,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.ar.sceneform.AnchorNode
 import com.hacktoberfest.nearbyplacesusingar.api.NearbyPlacesResponse
 import com.hacktoberfest.nearbyplacesusingar.api.PlacesService
-import com.hacktoberfest.nearbyplacesusingar.ar.PlacesArFragment
+import com.hacktoberfest.nearbyplacesusingar.arcore.PlacesArFragment
 import com.hacktoberfest.nearbyplacesusingar.model.Place
 import com.hacktoberfest.nearbyplacesusingar.model.getPositionVector
 import com.hacktoberfest.nearbyplacesusingar.utils.ViewUtils

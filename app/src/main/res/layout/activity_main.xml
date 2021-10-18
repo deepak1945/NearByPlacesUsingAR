@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.hacktoberfest.nearbyplacesusingar.MainActivity">
-    <fragment android:name="com.hacktoberfest.nearbyplacesusingar.ar.PlacesArFragment"
+    <fragment android:name="com.hacktoberfest.nearbyplacesusingar.arcore.PlacesArFragment"
         android:id="@+id/ar_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
