@@ -26,6 +26,7 @@ data class Place(
         return this.id.hashCode()
     }
 }
+
 fun Place.getPositionVector(azimuth: Float, latLng: LatLng): Vector3 {
     val placeLatLng = this.geometry.location.latLng
     val heading = latLng.sphericalHeading(placeLatLng)
